@@ -5,19 +5,31 @@ const ctx = canvas.getContext('2d');
 
 class Creature {
   //prepare creatures
-  initialize() {
+  constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
     this.size = 5;
     this.color = 'green';
     this.energy = 1;
+    this.vx = (Math.random() - 0.5) * 1; //velocity x
+    this.vy = (Math.random() - 0.5) * 5; //velocity y
     //ENERGY: When creature eats food, energy increases by 1, every generation, energy decreases by 1, and creatures need at least 1 energy to reproduce, if it reaches 0, it dies
   }
   
-  //creatures move randomly (for now, later i will make creatures not as dumb)
   move() {
-    this.x += (Math.random() - 0.5) * 2;
-    this.y += (Math.random() - 0.5) * 2;
+    this.x += this.vx;
+    this.y += this.vy;
+
+    this.vx += (Math.random() - 0.5) * 0.1;
+    this.vy += (Math.random() - 0.5) * 0.1;
+  
+    // limit max speed
+    const speed = Math.hypot(this.vx, this.vy);
+    const maxSpeed = .5;
+    if (speed > maxSpeed) {
+      this.vx *= maxSpeed / speed;
+      this.vy *= maxSpeed / speed;
+    }
   }
 
   //eat
@@ -40,7 +52,7 @@ class Creature {
 
 class Food {
   //prepare food
-  initialize() {
+  constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
     this.size = 5;
