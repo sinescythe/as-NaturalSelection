@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Natural Selection Sim</title>
+</head>
+<body>
+  <canvas id="world" width="800" height="600" style="border:1px solid black;"></canvas>
+
+  <script>
+    const canvas = document.getElementById('world');
+    const ctx = canvas.getContext('2d');
+
+    // draws red circle, testing canvas, making sure it works on Google Sites
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    ctx.arc(400, 300, 50, 0, Math.PI * 2);
+    ctx.fill();
+  </script>
+</body>
+</html>
