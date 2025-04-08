@@ -1,21 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Natural Selection Sim</title>
-</head>
-<body>
-  <canvas id="world" width="800" height="600" style="border:1px solid black;"></canvas>
+<canvas id="world" width="800" height="600" style="border:1px solid black;"></canvas>
+<script>
+const canvas = document.getElementById('world');
+const ctx = canvas.getContext('2d');
 
-  <script>
-    const canvas = document.getElementById('world');
-    const ctx = canvas.getContext('2d');
+class Creature {
+  //prepare creatures
+  initialize() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = 5;
+    this.color = 'green';
+    this.energy = 1
+    //ENERGY: When creature eats food, energy increases by 1, every generation, energy decreases by 1, and creatures need at least 1 energy to reproduce, if it reaches 0, it dies
+  }
+  
+  //creatures move randomly (for now, later i will make creatures not as dumb)
+  move() {
+    this.x += (Math.random() - 0.5) * 2;
+    this.y += (Math.random() - 0.5) * 2;
+  }
 
-    // draws red circle, testing canvas, making sure it works on Google Sites
-    ctx.fillStyle = 'red';
+  //eat
+  eat() {
+    this.energy += 1
+  }
+
+  reproduce() {
+    //WIP
+  }
+  
+  //draw creatures
+  draw() {
+    ctx.fillStyle = this.color;
     ctx.beginPath();
-    ctx.arc(400, 300, 50, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
-  </script>
-</body>
-</html>
+  }
+}
+
+class Food {
+  //prepare food
+  initialize() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = 5;
+    this.color = 'green';
+  }
+
+  
+}
+
+//create 50 creatures
+const creatures = Array.from({length: 50}, () => new Creature());
+
+//update frame
+function update() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let creature of creatures) {
+    creature.move();
+    creature.draw();
+  }
+  requestAnimationFrame(update);
+}
+
+update();
+</script>
